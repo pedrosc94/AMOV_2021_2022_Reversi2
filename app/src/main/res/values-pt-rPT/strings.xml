@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reversi</string>
+    <string name="app_lang">Português</string>
+    <string name="camera_capture">Capturar</string>
+    <string name="camera_back">Voltar</string>
+    <string name="camera_switch">Trocar</string>
+</resources>

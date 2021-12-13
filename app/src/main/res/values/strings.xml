@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Reversi</string>
+    <string name="app_lang">English</string>
+    <string name="camera_capture">Capture</string>
+    <string name="camera_back">Back</string>
+    <string name="camera_switch">Switch</string>
 </resources>
