@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/settings_profile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Profile" />
@@ -30,13 +30,13 @@
             android:text="Language" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/settings_lang_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="English" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/settings_exit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"

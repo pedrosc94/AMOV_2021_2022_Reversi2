@@ -12,14 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Request for permistions"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="341dp" />
+        app:layout_constraintBottom_toTopOf="@+id/permissions_exit_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/permissions_exit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp"
         android:text="Exit"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="633dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

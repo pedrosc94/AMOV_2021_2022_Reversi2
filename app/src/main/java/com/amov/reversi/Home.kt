@@ -16,7 +16,6 @@ class Home : AppCompatActivity() {
     private lateinit var btnOnline : Button
     private lateinit var btnSettings : Button
     private lateinit var btnAbout : Button
-    private lateinit var btnExit : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
