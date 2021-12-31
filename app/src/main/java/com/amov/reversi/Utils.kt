@@ -3,11 +3,14 @@ package com.amov.reversi
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaDrm
+import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.firestore.ktx.firestore
@@ -15,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 // Firebase // to remove
 private val db = Firebase.firestore
@@ -25,7 +29,6 @@ val TAG : String = "LOG"
 //--------------------------------------------------------------
 // Permissions
 //--------------------------------------------------------------
-// Permissions
 val PERMISSION_REQUEST_CODE: Int = 101
 
 fun checkPermissions(context: Context) : Boolean {
@@ -54,7 +57,20 @@ fun requestPermissions(context : Context) {
 }
 
 //--------------------------------------------------------------
-// Utils
+// Language Change
+//--------------------------------------------------------------
+ fun selectLang(context: Context, language: String) : String {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = context.resources.configuration
+    config.setLocale(locale)
+    context.createConfigurationContext(config)
+    context.resources.updateConfiguration(config, context.resources.displayMetrics)
+    return language
+}
+
+//--------------------------------------------------------------
+// DATE
 //--------------------------------------------------------------
 @SuppressLint("SimpleDateFormat")
 fun getDateTime() : String {
@@ -62,6 +78,9 @@ fun getDateTime() : String {
     return sdf.format(Date())
 }
 
+//--------------------------------------------------------------
+// Generating a Unique ID
+//--------------------------------------------------------------
 fun byteArrayToHex(byteArray: ByteArray): String {
     var result : String = ""
     for (b in byteArray) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Reversi</string>
-    <string name="app_lang">Português</string>
-    <string name="camera_capture">Capturar</string>
+    <string name="app_lang">🇵🇹 Português</string>
+    <string name="camera_capture">📷 Capturar</string>
     <string name="camera_back">Voltar</string>
     <string name="camera_switch">Trocar</string>
     <string name="home_local">📍 Local</string>
@@ -12,4 +12,7 @@
     <string name="app_exit">🚪 Sair</string>
     <string name="hello_blank_fragment">Olá fragmento em branco</string>
     <string name="app_permissions_msg">Nem todas as permissões foram aceites. A encerrar em 3 segundos...</string>
+    <string name="permissions_request_btn">Pedir permissões</string>
+    <string name="settings_profile">🙂 Perfil</string>
+    <string name="settings_lang">Linguagem</string>
 </resources>

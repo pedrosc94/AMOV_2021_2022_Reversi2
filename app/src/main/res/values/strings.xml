@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Reversi</string>
-    <string name="app_lang">English</string>
-    <string name="camera_capture">Capture</string>
+    <string name="app_lang">🇬🇧 English</string>
+    <string name="camera_capture">📷 Capture</string>
     <string name="camera_back">Back</string>
     <string name="camera_switch">Switch</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -12,4 +12,7 @@
     <string name="home_about">ℹ️ About</string>
     <string name="app_exit">🚪 Exit</string>
     <string name="app_permissions_msg">Not all permissions were granted. Shutting down…</string>
+    <string name="permissions_request_btn">Request for permissions</string>
+    <string name="settings_profile">🙂 Profile</string>
+    <string name="settings_lang">Language</string>
 </resources>

@@ -53,14 +53,4 @@ class Permissions : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "Permissions.onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "Permissions.onDestroy()")
-    }
 }

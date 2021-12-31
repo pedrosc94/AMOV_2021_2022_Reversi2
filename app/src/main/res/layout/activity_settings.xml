@@ -19,7 +19,7 @@
             android:id="@+id/settings_profile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profile" />
+            android:text="@string/settings_profile" />
 
         <TextView
             android:id="@+id/textView"
@@ -27,20 +27,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="Language" />
+            android:text="@string/settings_lang" />
 
         <Button
             android:id="@+id/settings_lang_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="English" />
+            android:text="@string/app_lang" />
 
         <Button
             android:id="@+id/settings_exit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Exit" />
+            android:text="@string/app_exit" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

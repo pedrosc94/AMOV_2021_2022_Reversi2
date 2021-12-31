@@ -11,7 +11,7 @@
         android:id="@+id/permissions_request_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Request for permistions"
+        android:text="@string/permissions_request_btn"
         app:layout_constraintBottom_toTopOf="@+id/permissions_exit_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="140dp"
-        android:text="Exit"
+        android:text="@string/app_exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
