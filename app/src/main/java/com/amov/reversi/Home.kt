@@ -27,6 +27,7 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        // Checks for previous language config -> this can be moved to function. maybe improved?
         val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         val language : String? = prefs.getString(PREFS_LANG,"null")
         if (language != null) {

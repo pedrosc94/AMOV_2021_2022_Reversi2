@@ -36,22 +36,26 @@
 
         <activity
             android:name=".Settings"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".Profile"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".About"
-            android:exported="false">
+            android:exported="false"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".Home"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

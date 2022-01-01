@@ -13,6 +13,6 @@
     <string name="app_exit">🚪 Exit</string>
     <string name="app_permissions_msg">Not all permissions were granted. Shutting down…</string>
     <string name="permissions_request_btn">Request for permissions</string>
-    <string name="settings_profile">🙂 Profile</string>
+    <string name="settings_profile">👨 Profile‍</string>
     <string name="settings_lang">Language</string>
 </resources>
