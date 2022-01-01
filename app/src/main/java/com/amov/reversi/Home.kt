@@ -111,12 +111,12 @@ class Home : AppCompatActivity() {
         when {
             CURR_VERSION_CODE == savedVersionCode -> {
                 Log.d(TAG, "This is a normal run!")
-                createEmptyUser() // This is to remove!!!!!
                 return
             }
             // -1 -> Doesn't exist
             savedVersionCode == -1 -> {
                 Log.d(TAG, "This is a new install (or the user cleared the shared preferences)!")
+                createEmptyUser()
                 // TODO checkProfile()
             }
             // We wont use this probably

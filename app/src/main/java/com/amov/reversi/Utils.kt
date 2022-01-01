@@ -145,6 +145,35 @@ fun findUser(id : String): String {
     return ""
 }
 
+//
+// Firestore
+//
+fun uploadImageToStorage(bitmap: Bitmap) {
+    // Create a storage reference from our app
+    val storage = FirebaseStorage.getInstance()
+    val storageRef = storage.reference
+    // Create a reference to "mountains.jpg"
+    val fileImage = storageRef.child(getUniqueID() + ".jpg")
+    // Create a reference to 'images/mountains.jpg'
+    val fileImageRef = storageRef.child("images/" + getUniqueID() + ".jpg")
+    // While the file names are the same, the references point to different files
+    fileImage.name == fileImageRef.name // true
+    fileImage.path == fileImageRef.path // false
+
+    // Output Stream
+    val baos = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+    val data = baos.toByteArray()
+
+    // Firestore Upload
+    var uploadTask = fileImage.putBytes(data)
+    uploadTask.addOnFailureListener {
+        Log.d(TAG, "Upload failed!")
+    }.addOnSuccessListener { taskSnapshot ->
+        Log.d(TAG, "Upload successful!")
+    }
+}
+
 //----------------------------------------------------------
 //
 //

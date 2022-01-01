@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 
 class Profile : AppCompatActivity() {
 
@@ -80,13 +82,20 @@ class Profile : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAPTURE_CODE) run {
             val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
+            uploadImageToStorage(bitmap)
+
+
+            /*
             // Encoding to String to save in same document where all the other user info is stored
             val bitmapEncoded64 : String = encodeToBase64(bitmap)
-            // Updating firebase & local with the new picture
-            // TODO db.collection("users").document(getUniqueID()).get()........ img = bitmapEncoded64
-            // Just testing the decoding
-            val bitmapDecoded64 : Bitmap = decodeBase64(bitmapEncoded64)
+            // Updating firebase with the new image
+            db.collection("users").document(getUniqueID()).update("img", bitmap)
+            // Just testing firebase & decoding
+            var img : String = ""
+            val tempImg = db.collection("users").document(getUniqueID()).get().addOnSuccessListener { document -> img = document.get("img").toString() }
+            val bitmapDecoded64 : Bitmap = decodeBase64(img)
             profileImg.setImageBitmap(bitmapDecoded64)
+            */
         }
     }
 }
