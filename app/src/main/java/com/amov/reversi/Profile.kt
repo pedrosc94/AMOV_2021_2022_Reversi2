@@ -1,6 +1,9 @@
 package com.amov.reversi
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -8,8 +11,14 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class Profile : AppCompatActivity() {
+
+    private val db = Firebase.firestore
+    private val CAPTURE_CODE = 1
+    private lateinit var profileImg: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,14 +28,15 @@ class Profile : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
 
         // Buttons things
-        val profileImg : ImageView = findViewById(
-            R.id.profile_profile_image)
+        profileImg = findViewById(R.id.profile_profile_image)
         profileImg.setOnClickListener() {
             if (!checkPermissions(this)) {
                 requestPermissions(this)
             }
             else {
                 Log.d(TAG, "Profile.launchCam()")
+                val intent : Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(intent,CAPTURE_CODE)
             }
         }
 
@@ -42,6 +52,9 @@ class Profile : AppCompatActivity() {
                 profileName.clearFocus()
                 handled = true
             }
+            // Updating firebase & local with new username
+
+            Log.d(TAG, "Updated the username!")
             handled
         }
 
@@ -59,5 +72,20 @@ class Profile : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "Profile.onResume()")
+    }
+
+    // Using this just for camera
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAPTURE_CODE) run {
+            val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
+            // Encoding to String to save in same document where all the other user info is stored
+            val bitmapEncoded64 : String = encodeToBase64(bitmap)
+            // Updating firebase & local with the new picture
+            // db.collection("users").document(getUniqueID()).get()
+            // Just testing the decoding
+            val bitmapDecoded64 : Bitmap = decodeBase64(bitmapEncoded64)
+            profileImg.setImageBitmap(bitmapDecoded64)
+        }
     }
 }

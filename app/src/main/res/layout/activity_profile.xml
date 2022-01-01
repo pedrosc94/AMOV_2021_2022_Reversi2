@@ -23,7 +23,8 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/profile_name_text"
@@ -32,7 +33,7 @@
                 android:gravity="center_horizontal"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:text="Your name here" />
+                android:text="@string/profile_name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

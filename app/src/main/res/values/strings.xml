@@ -3,9 +3,7 @@
     <string name="app_lang">🇬🇧 English</string>
     <string name="camera_capture">📷 Capture</string>
     <string name="camera_back">Back</string>
-    <string name="camera_switch">Switch</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_local">📍 Local</string>
     <string name="home_online">🌍 Online</string>
     <string name="home_settings">⚙️ Settings</string>
@@ -15,4 +13,5 @@
     <string name="permissions_request_btn">Request for permissions</string>
     <string name="settings_profile">👨 Profile‍</string>
     <string name="settings_lang">Language</string>
+    <string name="profile_name">Username</string>
 </resources>

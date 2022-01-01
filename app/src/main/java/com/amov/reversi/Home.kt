@@ -110,6 +110,7 @@ class Home : AppCompatActivity() {
         when {
             CURR_VERSION_CODE == savedVersionCode -> {
                 Log.d(TAG, "This is a normal run!")
+                createEmptyUser()
                 return
             }
             // -1 -> Doesn't exist

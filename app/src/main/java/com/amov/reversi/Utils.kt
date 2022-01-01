@@ -8,20 +8,21 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.MediaDrm
 import android.preference.PreferenceManager
+import android.util.Base64
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-
-
-// Firebase // to remove
-private val db = Firebase.firestore
+import kotlin.collections.HashMap
 
 // Logs
 val TAG : String = "LOG"
@@ -79,6 +80,24 @@ fun getDateTime() : String {
 }
 
 //--------------------------------------------------------------
+// Encoding & Decoding (camera bitmap)
+//--------------------------------------------------------------
+fun encodeToBase64(image: Bitmap): String {
+    val baos = ByteArrayOutputStream()
+    image.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+    val b: ByteArray = baos.toByteArray()
+    val imageEncoded: String = Base64.encodeToString(b, Base64.DEFAULT)
+    Log.d(TAG, "Image was encoded!")
+    return imageEncoded
+}
+
+fun decodeBase64(input: String?): Bitmap {
+    val decodedByte = Base64.decode(input, 0)
+    Log.d(TAG, "Image was decoded!")
+    return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
+}
+
+//--------------------------------------------------------------
 // Generating a Unique ID
 //--------------------------------------------------------------
 fun byteArrayToHex(byteArray: ByteArray): String {
@@ -105,6 +124,35 @@ fun getUniqueID() : String {
     // Use ARM on Android P platform or higher, where MediaDrm has the close() method
 }
 
+//--------------------------------------------------------------
+// Firebase
+//--------------------------------------------------------------
+fun createEmptyUser(){
+    val db = Firebase.firestore
+
+    val user = hashMapOf(
+        "username" to  "null",
+        "created"  to  getDateTime(),
+        "img"  to  "null"
+    )
+    // Add a new document with a generated ID
+    db.collection("users").document(getUniqueID()).set(user)
+    Log.d(TAG,user["username"].toString())
+}
+
+fun findUser(id : String): String {
+    val db = Firebase.firestore
+    return ""
+}
+
+//----------------------------------------------------------
+//
+//
+// NON FUNCTIONAL CODE
+//
+//
+//----------------------------------------------------------
+
 //----------------------------------------------------------
 // POSSIBLE STARTUP CODE
 //----------------------------------------------------------
@@ -130,20 +178,7 @@ else {
 //----------------------------------------------------------
 // Testing FIREBASE
 //----------------------------------------------------------
-fun usersTEST(){
-    // Firebase USERS
-    //--------------------------------------------------------------
-
-    // Create a new user with a first and last name
-    val user = hashMapOf(
-        "date"  to  getDateTime(),
-        "first" to  "Pedro",
-        "last"  to  "TEST",
-        "born"  to  1994
-    )
-    // Add a new document with a generated ID
-    db.collection("users").document(getUniqueID()).set(user)
-}
+/*
 fun storageTEST() {
     //Firebase STORAGE
     val storage = FirebaseStorage.getInstance()
@@ -178,10 +213,7 @@ fun storageTEST2() {
     // Create a reference to "mountains.jpg"
     val file = storageRef.child("smile.jpg")
 }
-
-// Firebase Profile && Local Profile
-//--------------------------------------------------------------
-private fun checkExistingProfile() : Boolean {
+fun checkExistingProfile() : Boolean {
     var accountExists : Boolean = false
     /*
     db.collection("users")
@@ -213,9 +245,7 @@ private fun registerPhone() : Boolean {
         true
     }
 }*/
-
-//----------------------------------------------------------
-//----------------------------------------------------------
+*/
 
 //----------------------------------------------------------
 // DEFAULT CODE FOR FIREBASE DOCUMENTS
