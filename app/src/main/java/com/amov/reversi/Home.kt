@@ -27,7 +27,7 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        // Checks for previous language config -> this can be moved to function. maybe improved?
+        // Checks for previous language config -> this can be moved to function?
         val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         val language : String? = prefs.getString(PREFS_LANG,"null")
         if (language != null) {
@@ -76,6 +76,7 @@ class Home : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(com.amov.reversi.TAG, "Home.onResume()")
+
         // KINDA WORKS, CAN BE IMPROVED
         val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
         val language : String? = prefs.getString(PREFS_LANG,"null")
@@ -110,13 +111,13 @@ class Home : AppCompatActivity() {
         when {
             CURR_VERSION_CODE == savedVersionCode -> {
                 Log.d(TAG, "This is a normal run!")
-                createEmptyUser()
+                createEmptyUser() // This is to remove!!!!!
                 return
             }
             // -1 -> Doesn't exist
             savedVersionCode == -1 -> {
                 Log.d(TAG, "This is a new install (or the user cleared the shared preferences)!")
-                //checkProfile()
+                // TODO checkProfile()
             }
             // We wont use this probably
             CURR_VERSION_CODE > savedVersionCode -> {

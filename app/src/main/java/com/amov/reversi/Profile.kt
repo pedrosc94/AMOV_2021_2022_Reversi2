@@ -27,7 +27,7 @@ class Profile : AppCompatActivity() {
         // Draw activity_profile.xml
         setContentView(R.layout.activity_profile)
 
-        // Buttons things
+        // Profile Image
         profileImg = findViewById(R.id.profile_profile_image)
         profileImg.setOnClickListener() {
             if (!checkPermissions(this)) {
@@ -40,6 +40,7 @@ class Profile : AppCompatActivity() {
             }
         }
 
+        // Profile Name
         val profileName : TextInputEditText = findViewById(R.id.profile_name_text)
         profileName.setOnEditorActionListener { v, actionId, event ->
             var handled = false
@@ -48,12 +49,12 @@ class Profile : AppCompatActivity() {
                 // This was added to hide the keyboard, before the keyboard would stay on screen
                 val inputMethodManager: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(v.applicationWindowToken, 0)
-                // Clear focus from the textbox
+                // Clear focus from the text box
                 profileName.clearFocus()
                 handled = true
             }
             // Updating firebase & local with new username
-
+            // TODO db.collection("users").document(getUniqueID()).get()........ name = profileName.text
             Log.d(TAG, "Updated the username!")
             handled
         }
@@ -74,7 +75,7 @@ class Profile : AppCompatActivity() {
         Log.d(TAG, "Profile.onResume()")
     }
 
-    // Using this just for camera
+    // Using this just for camera quick solution
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAPTURE_CODE) run {
@@ -82,7 +83,7 @@ class Profile : AppCompatActivity() {
             // Encoding to String to save in same document where all the other user info is stored
             val bitmapEncoded64 : String = encodeToBase64(bitmap)
             // Updating firebase & local with the new picture
-            // db.collection("users").document(getUniqueID()).get()
+            // TODO db.collection("users").document(getUniqueID()).get()........ img = bitmapEncoded64
             // Just testing the decoding
             val bitmapDecoded64 : Bitmap = decodeBase64(bitmapEncoded64)
             profileImg.setImageBitmap(bitmapDecoded64)
