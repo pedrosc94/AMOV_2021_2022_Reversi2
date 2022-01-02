@@ -14,4 +14,11 @@
     <string name="settings_profile">👨 Perfil</string>
     <string name="settings_lang">Linguagem</string>
     <string name="profile_name">Nome de Utilizador</string>
+    <string name="profile_copyID">📋 Copiar o meu ID</string>
+    <string name="game_bomb">💣 Bomba</string>
+    <string name="game_switch">⇄ Trocar</string>
+    <string name="game_player2_name">Jogador 2</string>
+    <string name="app_back">⬅ Voltar</string>
+    <string name="game_end_title">O jogo terminou!</string>
+    <string name="game_end_msg">A voltar para o Menu Inicial...</string>
 </resources>

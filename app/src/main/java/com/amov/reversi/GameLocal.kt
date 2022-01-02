@@ -2,11 +2,16 @@ package com.amov.reversi
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class GameLocal : Activity() {
     private var board = arrayOf(CharArray(8), CharArray(8), CharArray(8), CharArray(8), CharArray(8), CharArray(8), CharArray(8),CharArray(8))
@@ -19,10 +24,20 @@ class GameLocal : Activity() {
 
     //region Ons
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Shared Preferences
+        val PREFS_NAME = BuildConfig.APPLICATION_ID + ".PREFS"
+        val PREFS_LANG = "SELECTED_LANG"
+        val prefs: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val language : String? = prefs.getString(PREFS_LANG,"null")
+        if (language != null) {
+            selectLang(this,language)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_local)
 
         setUI()
+        updateName()
     }
 
     fun onPlay(v: View) {
@@ -59,8 +74,7 @@ class GameLocal : Activity() {
         updateScore(v)
 
         if(checkIfGameEnded()){
-            // val intent = Intent(this, MainActivity::class.java) // MANDAR PARA A ACTIVITY QUE QUEREMOS!!!
-            // startActivity(intent)
+            showDialogMsg("END",this,this)
         }
 
         setButtonsForNextRound(v)
@@ -306,9 +320,13 @@ class GameLocal : Activity() {
             player1.turnPlaying = false
 
             player2.turnPlaying = true
+            findViewById<TextView>(R.id.textViewPlayer2).setBackgroundColor(Color.parseColor("#EC8E00"))
+            findViewById<TextView>(R.id.textViewPlayer1).setBackgroundColor(Color.TRANSPARENT)
         } else {
             player1.turnPlaying = true
             player2.turnPlaying = false
+            findViewById<TextView>(R.id.textViewPlayer1).setBackgroundColor(Color.parseColor("#EC8E00"))
+            findViewById<TextView>(R.id.textViewPlayer2).setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
@@ -788,5 +806,26 @@ class GameLocal : Activity() {
         }
 
         return false
+    }
+
+    //
+    private fun updateName() {
+        val db = Firebase.firestore
+        db.collection("users")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    if (document.id == getUniqueID()) {
+                        // Updates username text
+                        findViewById<TextView>(R.id.textViewPlayer1).text = document.data.get("username").toString()
+                        // Image
+                        //findViewById<ImageView>(R.id.profile_profile_image).setImageBitmap(decodeBase64(document.data.get("image").toString()))
+                        Log.d(TAG, "${document.id} => ${document.data.get("username")}")
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
     }
 }

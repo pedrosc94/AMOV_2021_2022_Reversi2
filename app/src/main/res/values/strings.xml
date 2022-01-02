@@ -14,4 +14,11 @@
     <string name="settings_profile">👨 Profile‍</string>
     <string name="settings_lang">Language</string>
     <string name="profile_name">Username</string>
+    <string name="profile_copyID">📋 Copy my ID</string>
+    <string name="game_bomb">💣 Bomb</string>
+    <string name="game_switch">⇄ Switch</string>
+    <string name="game_player2_name">Player 2</string>
+    <string name="app_back">⬅ Return</string>
+    <string name="game_end_title">Game is Over!</string>
+    <string name="game_end_msg">Returning to Main Menu...</string>
 </resources>

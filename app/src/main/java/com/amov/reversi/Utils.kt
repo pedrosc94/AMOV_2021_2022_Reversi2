@@ -3,17 +3,17 @@ package com.amov.reversi
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlarmManager
-import android.app.PendingIntent
+import android.app.AlertDialog
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaDrm
-import android.preference.PreferenceManager
 import android.util.Base64
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.firestore.ktx.firestore
@@ -22,7 +22,6 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 // Logs
 val TAG : String = "LOG"
@@ -45,15 +44,18 @@ fun checkPermissions(context: Context) : Boolean {
 fun hasPermissions(context : Context): Boolean {
     return (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED                    &&
             ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED     &&
-            ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED    &&
+            ContextCompat.checkSelfPermission(context, android.Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED
+            )
 }
 fun requestPermissions(context : Context) {
     Log.d(TAG,"Requesting permissions...")
     return ActivityCompat.requestPermissions(
         context as Activity, arrayOf(
-        Manifest.permission.CAMERA,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET
     ), PERMISSION_REQUEST_CODE)
 }
 
@@ -125,40 +127,65 @@ fun getUniqueID() : String {
 }
 
 //--------------------------------------------------------------
-// Firebase
+// Documents - Firebase
 //--------------------------------------------------------------
 fun createEmptyUser(){
     val db = Firebase.firestore
 
     val user = hashMapOf(
-        "username" to  "null",
+        "username" to  null,
         "created"  to  getDateTime(),
-        "img"  to  "null"
+        "image"    to  null
     )
-    // Add a new document with a generated ID
-    db.collection("users").document(getUniqueID()).set(user)
+    if(getUniqueID().length <= 1) {}
+    else {
+        // Add a new document with a ID that is linked to device!
+        db.collection("users").document(getUniqueID()).set(user)
+    }
     Log.d(TAG,user["username"].toString())
 }
 
-fun findUser(id : String): String {
+/* NOT WORKING WELL
+fun findUserInfo(id : String, field : String): String {
     val db = Firebase.firestore
-    return ""
-}
 
-//
-// Firestore
-//
+    var r : String = ""
+
+    db.collection("users")
+        .get()
+        .addOnSuccessListener { result ->
+            for (document in result) {
+                if (document.id == id) {
+                    r = document.data.get("username").toString()
+                    Log.d(TAG, "${document.id} => ${document.data.get("username")}")
+                }
+            }
+        }
+        .addOnFailureListener { exception ->
+            Log.w(TAG, "Error getting documents.", exception)
+        }
+    Thread.sleep(1000);
+
+    return r
+}*/
+
+//--------------------------------------------------------------
+// Storage - Firebase
+//--------------------------------------------------------------
 fun uploadImageToStorage(bitmap: Bitmap) {
     // Create a storage reference from our app
     val storage = FirebaseStorage.getInstance()
     val storageRef = storage.reference
     // Create a reference to "mountains.jpg"
     val fileImage = storageRef.child(getUniqueID() + ".jpg")
+
+    /*
     // Create a reference to 'images/mountains.jpg'
     val fileImageRef = storageRef.child("images/" + getUniqueID() + ".jpg")
     // While the file names are the same, the references point to different files
     fileImage.name == fileImageRef.name // true
     fileImage.path == fileImageRef.path // false
+    */
 
     // Output Stream
     val baos = ByteArrayOutputStream()
@@ -174,10 +201,60 @@ fun uploadImageToStorage(bitmap: Bitmap) {
     }
 }
 
+/*
+fun downloadImageFromStorage(id : String) : Bitmap {
+    var bmp : Bitmap? = null
+
+    return bmp
+}*/
+
+//
+// Clipboard
+//
+fun copyMyID(context: Context) {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clip = ClipData.newPlainText("Copied Text", getUniqueID())
+    clipboard.setPrimaryClip(clip)
+}
+
+//----------------------------------------------------------
+// DialogBox
+//----------------------------------------------------------
+fun showDialogMsg(title: String?, activity: Activity, context: Context) {
+    val builder = AlertDialog.Builder(context)
+    builder.setCancelable(false);
+
+    if(title == "Language") {
+        builder.setTitle("Select Language")
+        builder.setMessage("Selecionar Linguagem")
+        builder.setPositiveButton(
+            "Português"
+        ) { dialog, which ->
+            selectLang(context, "pt")
+            activity.finish()
+            activity.startActivity(Intent(activity.intent))
+        }
+        builder.setNegativeButton("English") { dialog, which ->
+            selectLang(context,"en")
+            activity.finish()
+            activity.startActivity(Intent(activity.intent))
+        }.show()
+    }
+    else {
+        builder.setTitle(R.string.game_end_title)
+        builder.setMessage(R.string.game_end_msg)
+        builder.setPositiveButton(
+            "OK"
+        ) { dialog, which ->
+            activity.finish()
+        }.show()
+    }
+}
+
 //----------------------------------------------------------
 //
 //
-// NON FUNCTIONAL CODE
+// CODE IDEAS/TEST
 //
 //
 //----------------------------------------------------------

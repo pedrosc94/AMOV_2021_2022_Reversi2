@@ -117,7 +117,7 @@ class Home : AppCompatActivity() {
             savedVersionCode == -1 -> {
                 Log.d(TAG, "This is a new install (or the user cleared the shared preferences)!")
                 createEmptyUser()
-                // TODO checkProfile()
+                //showDialogMsg("Language",this,this)
             }
             // We wont use this probably
             CURR_VERSION_CODE > savedVersionCode -> {

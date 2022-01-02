@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ReversiGame"
+    tools:context=".GameLocal"
     android:background="#63A681"
     android:id="@+id/board">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutTabuleiro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,11 +21,11 @@
             android:id="@+id/bombButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#ACD1AF"
             android:layout_margin="6dp"
-            android:text = "Bomb"
+            android:background="#ACD1AF"
+            android:onClick="onBomb"
             android:tag="normalButton"
-            android:onClick="onBomb"/>
+            android:text="@string/game_bomb" />
 
         <Button
             android:id="@+id/switchButton"
@@ -32,8 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:background="#ACD1AF"
-            android:text = "Switch"
-            android:onClick="onSwitch"/>
+            android:onClick="onSwitch"
+            android:text="@string/game_switch" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -651,12 +652,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutScores"
-        android:background="#ACD1AF"
-        android:layout_width="match_parent"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:background="#ACD1AF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -669,9 +670,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
+            android:background="#FFA500"
             android:text="Player 1"
             android:textStyle="bold"
-            android:background="#FFA500"
             app:layout_constraintBottom_toTopOf="@+id/scorePlayer1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -681,9 +682,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:text="2"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textViewPlayer1"
             app:layout_constraintStart_toStartOf="@+id/textViewPlayer1"
@@ -695,7 +696,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="15dp"
-            android:text="Player2"
+            android:text="@string/game_player2_name"
             app:layout_constraintBottom_toTopOf="@+id/scorePlayer2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
