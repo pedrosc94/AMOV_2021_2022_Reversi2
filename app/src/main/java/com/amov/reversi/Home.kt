@@ -53,7 +53,7 @@ class Home : AppCompatActivity() {
         }
         btnOnline = findViewById<Button>(R.id.home_btn_online)
         btnOnline.setOnClickListener() {
-            val intent = Intent(this@Home, GameOnline::class.java)
+            val intent = Intent(this@Home, HomeOnline::class.java)
             startActivity(intent)
         }
         btnSettings = findViewById<Button>(R.id.home_btn_settings)

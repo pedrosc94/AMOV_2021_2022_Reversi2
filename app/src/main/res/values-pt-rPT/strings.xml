@@ -21,4 +21,6 @@
     <string name="app_back">⬅ Voltar</string>
     <string name="game_end_title">O jogo terminou!</string>
     <string name="game_end_msg">A voltar para o Menu Inicial...</string>
+    <string name="play_as_server">👩🏻‍💻 Jogar como Servidor</string>
+    <string name="play_as_client">👦🏻 Jogar como Cliente</string>
 </resources>

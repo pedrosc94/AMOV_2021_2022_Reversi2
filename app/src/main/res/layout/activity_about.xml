@@ -45,6 +45,13 @@
             android:gravity="center_horizontal"
             android:text="Pedro Carvalho" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Miguel Tavares" />
+
         <Button
             android:id="@+id/about_exit_btn"
             android:layout_width="match_parent"
